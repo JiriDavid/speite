@@ -6,6 +6,8 @@ from typing import Tuple
 import librosa
 import numpy as np
 
+EPSILON = 1e-9
+
 
 def preprocess_audio(audio_bytes: bytes, target_sr: int = 16000) -> Tuple[np.ndarray, int]:
     """
@@ -17,7 +19,13 @@ def preprocess_audio(audio_bytes: bytes, target_sr: int = 16000) -> Tuple[np.nda
         waveform, _ = librosa.load(buffer, sr=target_sr, mono=True)
 
     if waveform.size == 0:
-        raise ValueError("Empty audio received for preprocessing.")
+        raise ValueError(
+            "Audio file is empty or could not be loaded. Ensure the upload is a valid WAV file."
+        )
 
-    waveform = waveform / (np.max(np.abs(waveform)) + 1e-9)
+    peak = np.max(np.abs(waveform))
+    if peak < EPSILON:
+        return waveform, target_sr
+
+    waveform = waveform / peak
     return waveform, target_sr

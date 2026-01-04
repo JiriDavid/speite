@@ -1,10 +1,12 @@
 """API routes for the offline speech-to-text service."""
 
-from typing import List
+import io
+import wave
+from typing import List, Optional
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
-from backend.models.schemas import TranscriptionResponse
+from backend.models.schemas import TimestampSegment, TranscriptionResponse
 from backend.services.keyword_detection import detect_keywords
 from backend.services.speech_to_text import transcribe_audio
 from backend.utils.audio_preprocessing import preprocess_audio
@@ -15,7 +17,8 @@ router = APIRouter(tags=["speech-to-text"])
 @router.post("/transcribe", response_model=TranscriptionResponse)
 async def transcribe(
     file: UploadFile = File(..., description="WAV audio file"),
-    keywords: List[str] | None = None,
+    keywords: Optional[List[str]] = None,
+    model_name: str = "base",
 ) -> TranscriptionResponse:
     """
     Accept a WAV file, preprocess audio, run offline speech-to-text, and detect keywords.
@@ -24,8 +27,22 @@ async def transcribe(
         raise HTTPException(status_code=400, detail="Only WAV audio is supported.")
 
     audio_bytes = await file.read()
-    waveform, sample_rate = preprocess_audio(audio_bytes)
-    text, timestamps = transcribe_audio(waveform, sample_rate)
-    detected = detect_keywords(text, keywords or [])
+    try:
+        with wave.open(io.BytesIO(audio_bytes), "rb") as wav_file:
+            wav_file.getparams()
+    except wave.Error as exc:
+        raise HTTPException(
+            status_code=400, detail="Invalid WAV file structure or header."
+        ) from exc
 
-    return TranscriptionResponse(text=text, timestamps=timestamps, keywords=detected)
+    try:
+        waveform, sample_rate = preprocess_audio(audio_bytes)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    text, timestamps = transcribe_audio(waveform, sample_rate, model_name=model_name)
+    detected = detect_keywords(text, keywords or [])
+    timestamp_segments = [TimestampSegment(**segment) for segment in timestamps]
+
+    return TranscriptionResponse(
+        text=text, timestamps=timestamp_segments, keywords=detected
+    )

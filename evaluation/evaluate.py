@@ -1,9 +1,9 @@
 """Placeholder utilities for evaluating transcription quality."""
 
-from typing import Dict
+from typing import Dict, Optional
 
 
-def evaluate_transcription(reference: str, hypothesis: str) -> Dict[str, float | None]:
+def evaluate_transcription(reference: str, hypothesis: str) -> Dict[str, Optional[float]]:
     """
     Compare reference and hypothesis transcripts.
 
