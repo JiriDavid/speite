@@ -179,15 +179,20 @@ def load_audio_from_bytes(audio_bytes: bytes, filename: str = "temp.wav") -> np.
     
     preprocessor = AudioPreprocessor()
     
-    # Save bytes to temporary file
-    with tempfile.NamedTemporaryFile(suffix=os.path.splitext(filename)[1], delete=False) as temp_file:
-        temp_path = temp_file.name
-        temp_file.write(audio_bytes)
+    # Create a secure temporary file with proper permissions
+    # Use mkstemp for secure temp file creation
+    file_extension = os.path.splitext(filename)[1]
+    fd, temp_path = tempfile.mkstemp(suffix=file_extension)
     
     try:
+        # Write bytes to temporary file using the file descriptor
+        os.write(fd, audio_bytes)
+        os.close(fd)  # Close the file descriptor
+        
         # Process the temporary file
         audio_data = preprocessor.preprocess(temp_path)
         return audio_data
+        
     finally:
         # Clean up temporary file
         if os.path.exists(temp_path):

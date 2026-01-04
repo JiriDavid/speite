@@ -8,6 +8,7 @@ All processing is done locally with no external API calls.
 import logging
 from typing import Optional, Dict, Any
 from io import BytesIO
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, File, UploadFile, HTTPException, Form
 from fastapi.responses import JSONResponse
@@ -25,11 +26,36 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Initialize FastAPI app
+# Initialize speech-to-text service
+stt_service = SpeechToTextService()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Lifespan context manager for startup and shutdown events.
+    """
+    # Startup
+    logger.info("Starting Speite API server...")
+    try:
+        stt_service.load_model()
+        logger.info("Service initialized successfully")
+    except Exception as e:
+        logger.error(f"Failed to initialize service: {str(e)}")
+        raise
+    
+    yield
+    
+    # Shutdown (if needed)
+    logger.info("Shutting down Speite API server...")
+
+
+# Initialize FastAPI app with lifespan
 app = FastAPI(
     title="Speite - Offline Speech-to-Text API",
     description="Fully offline speech-to-text system using open-source Whisper",
     version="0.1.0",
+    lifespan=lifespan
 )
 
 # Add CORS middleware for cross-origin requests
@@ -40,9 +66,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Initialize speech-to-text service
-stt_service = SpeechToTextService()
 
 
 class TranscriptionResponse(BaseModel):
@@ -57,21 +80,6 @@ class HealthResponse(BaseModel):
     status: str
     model_loaded: bool
     model_info: Dict[str, Any]
-
-
-@app.on_event("startup")
-async def startup_event():
-    """
-    Initialize the service on startup.
-    Loads the Whisper model into memory.
-    """
-    logger.info("Starting Speite API server...")
-    try:
-        stt_service.load_model()
-        logger.info("Service initialized successfully")
-    except Exception as e:
-        logger.error(f"Failed to initialize service: {str(e)}")
-        raise
 
 
 @app.get("/", response_model=Dict[str, str])
