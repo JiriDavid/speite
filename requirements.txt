@@ -1,0 +1,8 @@
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+openai-whisper>=20231117
+torch>=2.0.0
+torchaudio>=2.0.0
+librosa>=0.10.1
+onnxruntime>=1.16.0  # optional CPU-only optimization
+pydantic>=2.0.0
