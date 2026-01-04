@@ -8,7 +8,7 @@ All settings can be overridden via environment variables.
 import os
 from typing import Optional
 from pydantic_settings import BaseSettings
-from pydantic import Field
+from pydantic import Field, ConfigDict
 
 
 class Settings(BaseSettings):
@@ -17,6 +17,12 @@ class Settings(BaseSettings):
     
     All settings can be overridden via environment variables with SPEITE_ prefix.
     """
+    
+    model_config = ConfigDict(
+        env_prefix="SPEITE_",
+        env_file=".env",
+        case_sensitive=False
+    )
     
     # Model configuration
     whisper_model_name: str = Field(
@@ -66,11 +72,6 @@ class Settings(BaseSettings):
         default=None,
         description="Directory to cache Whisper models (default: ~/.cache/whisper)"
     )
-    
-    class Config:
-        env_prefix = "SPEITE_"
-        env_file = ".env"
-        case_sensitive = False
 
 
 # Global settings instance
