@@ -1,6 +1,18 @@
-# Speite - Offline Speech-to-Text System
+# Design and Implementation of an Offline Speech-to-Text System for Low-Connectivity Environments
 
 An offline speech-to-text system designed for low-connectivity environments. The system runs entirely offline using open-source tools and is suitable for academic review.
+
+## Abstract
+
+Despite remarkable advances in speech recognition accuracy, most systems rely on cloud processing, making them inaccessible in regions with unreliable or costly internet. This severely limits speech-driven applications in remote, low-resource, and privacy-sensitive environments.
+
+This project presents a fully offline speech processing system that performs speech-to-text transcription and keyword detection entirely on local devices. Using a lightweight pre-trained model (OpenAI Whisper), the system transcribes spoken English without internet connectivity, supported by an audio preprocessing pipeline for noise robustness and a keyword spotting module that identifies critical terms with timestamps.
+
+A browser-based interface connects to a local backend, enabling real-time audio capture, processing, and visualization of results on edge devices.
+
+Evaluation across diverse English accents assesses transcription accuracy, inference latency, and CPU efficiency. Results demonstrate reliable performance comparable to cloud systems, with low latency and complete data privacy.
+
+The system proves the viability of offline speech processing on resource-constrained hardware, with applications in safety hazard reporting, accessibility for motor-impaired users, offline lecture transcription in education, and hands-free field logging in agriculture. This work advances inclusive, resilient speech technologies for connectivity-challenged settings.
 
 ## Features
 
@@ -29,24 +41,28 @@ An offline speech-to-text system designed for low-connectivity environments. The
 ## Installation
 
 1. **Clone the repository**:
+
 ```bash
 git clone https://github.com/JiriDavid/speite.git
 cd speite
 ```
 
 2. **Create a virtual environment** (recommended):
+
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# On Windows: venv\Scripts\activate
+# On Linux/Mac: source venv/bin/activate
 ```
 
 3. **Install dependencies**:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 4. **Download Whisper model** (happens automatically on first use):
-The model will be downloaded and cached locally when you first run the system.
+   The model will be downloaded and cached locally when you first run the system.
 
 ## Usage
 
@@ -83,6 +99,8 @@ curl -X POST "http://localhost:8000/transcribe" \
   -F "include_timestamps=true"
 ```
 
+PowerShell tip: use `curl.exe` (not the PowerShell alias) or `Invoke-RestMethod -Method Post` to avoid the `-X` parameter error.
+
 **Example using Python:**
 
 ```python
@@ -95,6 +113,12 @@ data = {"include_timestamps": False}
 response = requests.post(url, files=files, data=data)
 print(response.json())
 ```
+
+### Option 3: Browser UI
+
+1. Start the server: `python main.py`
+2. Open the UI at `http://localhost:8000/ui`
+3. Drop an audio file, toggle timestamps, and copy the transcript. The UI includes live health status and segment timelines.
 
 ### Option 2: Command-Line Interface
 
@@ -134,7 +158,7 @@ export SPEITE_MAX_UPLOAD_SIZE=52428800  # 50 MB in bytes
 
 # Audio settings
 export SPEITE_SAMPLE_RATE=16000
-export SPEITE_MAX_AUDIO_DURATION=300    # 5 minutes
+export SPEITE_MAX_AUDIO_DURATION=900    # 15 minutes
 
 # Model cache directory (optional)
 export SPEITE_MODEL_CACHE_DIR=/path/to/models
@@ -151,13 +175,13 @@ SPEITE_API_PORT=8000
 
 Choose a model based on your requirements and available resources:
 
-| Model  | Parameters | VRAM | Relative Speed | English WER |
-|--------|------------|------|----------------|-------------|
-| tiny   | 39 M       | ~1 GB | ~32x          | ~10%        |
-| base   | 74 M       | ~1 GB | ~16x          | ~7%         |
-| small  | 244 M      | ~2 GB | ~6x           | ~5%         |
-| medium | 769 M      | ~5 GB | ~2x           | ~4%         |
-| large  | 1550 M     | ~10 GB| 1x            | ~3%         |
+| Model  | Parameters | VRAM   | Relative Speed | English WER |
+| ------ | ---------- | ------ | -------------- | ----------- |
+| tiny   | 39 M       | ~1 GB  | ~32x           | ~10%        |
+| base   | 74 M       | ~1 GB  | ~16x           | ~7%         |
+| small  | 244 M      | ~2 GB  | ~6x            | ~5%         |
+| medium | 769 M      | ~5 GB  | ~2x            | ~4%         |
+| large  | 1550 M     | ~10 GB | 1x             | ~3%         |
 
 **Recommendation**: Use `base` for a good balance of speed and accuracy.
 
@@ -185,6 +209,7 @@ speite/
 ## Supported Audio Formats
 
 The system supports various audio formats through librosa:
+
 - WAV
 - MP3
 - FLAC
@@ -193,6 +218,7 @@ The system supports various audio formats through librosa:
 - And more...
 
 Audio is automatically:
+
 - Converted to mono
 - Resampled to 16kHz
 - Validated for duration and quality
@@ -203,7 +229,7 @@ Audio is automatically:
 ✅ **No OpenAI API**: Uses open-source Whisper with local inference  
 ✅ **CPU-only inference**: Optimized for CPU, no GPU required  
 ✅ **English language only**: MVP focuses on English (configurable)  
-✅ **Clean, well-commented code**: Comprehensive documentation throughout  
+✅ **Clean, well-commented code**: Comprehensive documentation throughout
 
 ## Examples
 
@@ -255,6 +281,7 @@ Tests can be added to the `tests/` directory following standard pytest conventio
 ### Code Style
 
 The codebase follows Python best practices:
+
 - PEP 8 style guidelines
 - Comprehensive docstrings
 - Type hints where applicable
@@ -281,6 +308,7 @@ The codebase follows Python best practices:
 ## Academic Use
 
 This system is designed for academic review and research. The codebase is clean, well-commented, and follows best practices for:
+
 - Code organization
 - Error handling
 - Documentation

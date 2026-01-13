@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Speite | Offline Speech-to-Text</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Chakra+Petch:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="grid-bg"></div>
+    <div class="noise"></div>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="badge">Offline • Whisper • CPU-only</p>
+          <h1>Speite Voice Lab</h1>
+          <p class="lede">
+            Drop audio, transcribe locally, and explore segments with zero cloud
+            calls. Designed for low-connectivity environments.
+          </p>
+          <div class="cta-row">
+            <button id="chooseBtn" class="btn primary">Select audio</button>
+            <button id="transcribeBtn" class="btn ghost">Transcribe</button>
+            <label class="toggle">
+              <input type="checkbox" id="timestampsToggle" />
+              <span class="slider"></span>
+              <span class="label">Include timestamps</span>
+            </label>
+          </div>
+          <p class="hint">
+            Supports WAV · MP3 · FLAC · OGG · M4A (<= 50 MB). Default max
+            duration 15 minutes.
+          </p>
+        </div>
+        <div class="status-card" id="statusCard">
+          <div class="status-header">
+            <span class="dot" id="statusDot"></span>
+            <span id="statusText">Checking health…</span>
+          </div>
+          <dl>
+            <div>
+              <dt>Model</dt>
+              <dd id="modelName">—</dd>
+            </div>
+            <div>
+              <dt>Device</dt>
+              <dd id="deviceName">—</dd>
+            </div>
+            <div>
+              <dt>Language</dt>
+              <dd id="langName">—</dd>
+            </div>
+          </dl>
+          <button id="refreshHealth" class="pill">Refresh health</button>
+        </div>
+      </header>
+
+      <section class="panel uplink" id="dropZone">
+        <div class="accent-bar"></div>
+        <div class="uplink-body">
+          <div class="uplink-icon">⟟</div>
+          <div>
+            <p class="uplink-title">Drop your audio here</p>
+            <p class="uplink-sub">
+              or click to browse. Your audio never leaves this device.
+            </p>
+            <p class="file-chip" id="fileName">No file selected</p>
+          </div>
+        </div>
+        <input type="file" id="fileInput" accept="audio/*" hidden />
+      </section>
+
+      <section class="panel output">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Transcription</p>
+            <h2>Result</h2>
+          </div>
+          <div class="panel-actions">
+            <button id="copyBtn" class="pill">Copy text</button>
+            <span class="pill muted" id="durationChip">Ready</span>
+          </div>
+        </div>
+        <div class="output-body">
+          <pre id="transcript">Waiting for transcription…</pre>
+        </div>
+      </section>
+
+      <section class="panel segments">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Segments</p>
+            <h2>Timeline</h2>
+          </div>
+          <span class="pill muted" id="segmentCount">0 segments</span>
+        </div>
+        <div id="segments" class="segment-list empty">
+          <p class="placeholder">
+            Enable timestamps to see segment-level timing.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

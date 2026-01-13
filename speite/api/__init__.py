@@ -9,10 +9,12 @@ import logging
 from typing import Optional, Dict, Any
 from io import BytesIO
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, File, UploadFile, HTTPException, Form
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from speite.config import settings
@@ -25,6 +27,9 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
+
+# Static assets live in the project root /static directory
+STATIC_DIR = Path(__file__).resolve().parent.parent.parent / "static"
 
 # Initialize speech-to-text service
 stt_service = SpeechToTextService()
@@ -57,6 +62,10 @@ app = FastAPI(
     version="0.1.0",
     lifespan=lifespan
 )
+
+# Mount static assets for the browser UI when present
+if STATIC_DIR.exists():
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # Add CORS middleware for cross-origin requests
 app.add_middleware(
@@ -93,6 +102,17 @@ async def root():
         "status": "online",
         "description": "Fully offline speech-to-text using open-source Whisper"
     }
+
+
+@app.get("/ui", response_class=HTMLResponse)
+async def ui():
+    """
+    Serve the built-in web UI for interactive transcription.
+    """
+    index = STATIC_DIR / "index.html"
+    if not index.exists():
+        raise HTTPException(status_code=404, detail="UI not found")
+    return HTMLResponse(index.read_text(encoding="utf-8"))
 
 
 @app.get("/health", response_model=HealthResponse)

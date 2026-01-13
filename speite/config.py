@@ -47,7 +47,7 @@ class Settings(BaseSettings):
     )
     
     max_audio_duration: int = Field(
-        default=300,
+        default=900,
         description="Maximum audio duration in seconds (5 minutes default)"
     )
     
