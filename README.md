@@ -32,6 +32,10 @@ requirements.txt         # Project dependencies
    ```bash
    pip install -r requirements.txt
    ```
+   *Optional:* If your platform supports it (e.g., 64-bit Python wheels), you can add ONNX Runtime for CPU optimizations:
+   ```bash
+   pip install onnxruntime
+   ```
 3. Run the API locally (CPU-only):
    ```bash
    uvicorn backend.main:app --reload
