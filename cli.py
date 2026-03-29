@@ -11,7 +11,7 @@ import argparse
 import logging
 from pathlib import Path
 
-from speite.core import SpeechToTextService
+from speite.core import DEFAULT_KEYWORDS, SpeechToTextService
 from speite.utils import AudioPreprocessor
 from speite.config import settings
 
@@ -119,7 +119,7 @@ Examples:
         else:
             result = stt_service.transcribe(audio_data)
         
-        keywords = parse_keywords_arg(args.keywords)
+        keywords = parse_keywords_arg(args.keywords, fallback=DEFAULT_KEYWORDS)
         keyword_hits = stt_service.detect_keywords(result, keywords)
 
         # Format output
@@ -144,10 +144,10 @@ Examples:
         sys.exit(1)
 
 
-def parse_keywords_arg(raw_keywords: str):
-    """Parse comma/newline separated keyword input."""
+def parse_keywords_arg(raw_keywords: str, fallback=None):
+    """Parse comma/newline separated keyword input with optional fallback."""
     if not raw_keywords:
-        return []
+        return list(fallback or [])
 
     keywords = []
     for item in raw_keywords.replace("\n", ",").split(","):

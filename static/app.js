@@ -23,6 +23,7 @@ const segmentsEl = document.getElementById("segments");
 const segmentCount = document.getElementById("segmentCount");
 const durationChip = document.getElementById("durationChip");
 const copyBtn = document.getElementById("copyBtn");
+const downloadBtn = document.getElementById("downloadBtn");
 const keywordsInput = document.getElementById("keywordsInput");
 const keywordHitsEl = document.getElementById("keywordHits");
 const keywordHitCount = document.getElementById("keywordHitCount");
@@ -44,6 +45,15 @@ let mediaStream = null;
 let sourceNode = null;
 let processorNode = null;
 let pendingSamples = [];
+let lastTranscriptText = "";
+let lastSegments = [];
+let lastKeywordHits = [];
+
+const setDownloadEnabled = (enabled) => {
+  downloadBtn.disabled = !enabled;
+  downloadBtn.style.opacity = enabled ? 1 : 0.55;
+};
+setDownloadEnabled(false);
 
 const setToast = (msg, tone = "neutral") => {
   toastEl.textContent = msg;
@@ -216,6 +226,10 @@ const transcribe = async () => {
   transcriptEl.textContent = "Transcribing…";
   renderSegments([]);
   renderKeywordHits([]);
+  lastTranscriptText = "";
+  lastSegments = [];
+  lastKeywordHits = [];
+  setDownloadEnabled(false);
 
   const started = performance.now();
 
@@ -233,14 +247,19 @@ const transcribe = async () => {
       data.text || "",
       normalizedKeywords,
     );
+    lastTranscriptText = data.text || "";
+    lastSegments = data.segments || [];
+    lastKeywordHits = data.keyword_hits || [];
     durationChip.textContent = `Done in ${elapsed.toFixed(1)}s`;
     renderSegments(data.segments || []);
     renderKeywordHits(data.keyword_hits || []);
+    setDownloadEnabled(Boolean(lastTranscriptText.trim()));
     setToast("Transcription complete");
   } catch (err) {
     durationChip.textContent = "Error";
     transcriptEl.textContent = "Transcription failed. See toast for details.";
     renderKeywordHits([]);
+    setDownloadEnabled(false);
     setToast(err.message, "error");
   } finally {
     setLoading(false);
@@ -259,6 +278,60 @@ const copyTranscript = async () => {
   } catch (err) {
     setToast("Clipboard unavailable", "error");
   }
+};
+
+const buildDownloadText = () => {
+  const lines = [];
+  const fileLabel = currentFile ? currentFile.name : "unknown";
+  lines.push(`File: ${fileLabel}`);
+  lines.push(`Generated: ${new Date().toISOString()}`);
+  lines.push("");
+  lines.push("Transcript:");
+  lines.push(lastTranscriptText || transcriptEl.textContent || "");
+
+  if (lastSegments && lastSegments.length) {
+    lines.push("");
+    lines.push("Segments:");
+    lastSegments.forEach((seg, idx) => {
+      const start = formatTime(seg.start || 0);
+      const end = formatTime(seg.end || 0);
+      lines.push(`#${idx + 1} [${start} - ${end}] ${seg.text || ""}`);
+    });
+  }
+
+  if (lastKeywordHits && lastKeywordHits.length) {
+    lines.push("");
+    lines.push("Keyword hits:");
+    lastKeywordHits.forEach((hit, idx) => {
+      const start = formatTime(hit.start || 0);
+      const end = formatTime(hit.end || 0);
+      lines.push(`#${idx + 1} [${start} - ${end}] ${hit.keyword}: ${hit.match}`);
+    });
+  }
+
+  return lines.join("\n");
+};
+
+const downloadTranscript = () => {
+  const text = lastTranscriptText || transcriptEl.textContent || "";
+  if (!text.trim()) {
+    setToast("Nothing to download", "error");
+    return;
+  }
+
+  const blob = new Blob([buildDownloadText()], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const baseName = currentFile
+    ? currentFile.name.replace(/\.[^.]+$/, "")
+    : "transcript";
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${baseName || "transcript"}.txt`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  setToast("Download started");
 };
 
 const floatTo16BitPCM = (float32Array) => {
@@ -489,6 +562,7 @@ fileInput.addEventListener("change", (e) => handleFileInput(e.target.files));
 
 transcribeBtn.addEventListener("click", transcribe);
 copyBtn.addEventListener("click", copyTranscript);
+downloadBtn.addEventListener("click", downloadTranscript);
 recordBtn.addEventListener("click", toggleRecording);
 refreshHealth.addEventListener("click", fetchHealth);
 

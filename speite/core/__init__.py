@@ -13,6 +13,36 @@ import whisper
 
 from speite.config import settings
 
+# Default keywords for emergency and medical scenarios
+DEFAULT_KEYWORDS: List[str] = [
+    "emergency",
+    "fire",
+    "smoke",
+    "explosion",
+    "hazard",
+    "danger",
+    "alarm",
+    "evacuate",
+    "evacuation",
+    "mayday",
+    "help",
+    "medical emergency",
+    "injury",
+    "bleeding",
+    "unconscious",
+    "CPR",
+    "defibrillator",
+    "AED",
+    "cardiac arrest",
+    "breathing difficulty",
+    "shortness of breath",
+]
+
+
+def get_default_keywords() -> List[str]:
+    """Return a copy of the built-in keyword list."""
+    return list(DEFAULT_KEYWORDS)
+
 logger = logging.getLogger(__name__)
 
 

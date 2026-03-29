@@ -19,7 +19,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from speite.config import settings
-from speite.core import SpeechToTextService
+from speite.core import DEFAULT_KEYWORDS, SpeechToTextService
 from speite.utils import AudioPreprocessor, load_audio_from_bytes
 
 # Configure logging
@@ -87,10 +87,10 @@ class TranscriptionResponse(BaseModel):
     keyword_hits: Optional[list] = None
 
 
-def parse_keywords(raw_keywords: Optional[str]) -> List[str]:
-    """Parse comma/newline separated keywords or phrases."""
+def parse_keywords(raw_keywords: Optional[str], fallback: Optional[List[str]] = None) -> List[str]:
+    """Parse comma/newline separated keywords or phrases with optional fallback."""
     if not raw_keywords:
-        return []
+        return list(fallback or [])
 
     keywords: List[str] = []
     for item in raw_keywords.replace("\n", ",").split(","):
@@ -188,7 +188,7 @@ async def transcribe_audio(
         # Load and preprocess audio from bytes
         audio_data = load_audio_from_bytes(content, file.filename, profile="offline")
         
-        parsed_keywords = parse_keywords(keywords)
+        parsed_keywords = parse_keywords(keywords, fallback=DEFAULT_KEYWORDS)
 
         decode_kwargs = {"initial_prompt": prompt} if prompt else {}
 
