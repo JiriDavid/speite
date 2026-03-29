@@ -1,0 +1,167 @@
+[
+  {
+    "clip": "p1_noisy",
+    "profile": "none",
+    "edits": 16,
+    "reference_words": 36,
+    "wer": 0.4444444444444444,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 1.5287510000052862,
+    "real_time_factor": 0.0784027642888931,
+    "hypothesis": "The sun rays using the mist and certainly the west, the earth's blinds of the chilling green during months, water boils at 100 degrees Celsius, the sky is blue during the day and the late at night."
+  },
+  {
+    "clip": "p2_noisy",
+    "profile": "none",
+    "edits": 20,
+    "reference_words": 39,
+    "wer": 0.5128205128205128,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 1.161297700018622,
+    "real_time_factor": 0.04834447326800407,
+    "hypothesis": "The meeting is scheduled for March 15, 2026, each of 1st 3pm. The total cost is $452.7 billion. Flight number 247 departs from gate call, external gate."
+  },
+  {
+    "clip": "p3_noisy",
+    "profile": "none",
+    "edits": 17,
+    "reference_words": 33,
+    "wer": 0.5151515151515151,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 1.2077400999842212,
+    "real_time_factor": 0.054487844463470624,
+    "hypothesis": "The micro-processor operates the data frequency of 30.5 gigahertz. The algorithm process is all due to 16 gigahertz using the convolutional neural network. The API returns the adjacent response to the transcription confidence score."
+  },
+  {
+    "clip": "p4_noisy",
+    "profile": "none",
+    "edits": 8,
+    "reference_words": 35,
+    "wer": 0.22857142857142856,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 1.0733424999925774,
+    "real_time_factor": 0.06655149429517469,
+    "hypothesis": "Hello, how are you today? I am doing well thank you for asking. It was cold yesterday but today the weather is much better. Can you please class? Can you please pass me the red nut to con deployable?"
+  },
+  {
+    "clip": "p5_noisy",
+    "profile": "none",
+    "edits": 15,
+    "reference_words": 27,
+    "wer": 0.5555555555555556,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 0.9094889000116382,
+    "real_time_factor": 0.06232791255562213,
+    "hypothesis": "When I hate to disturb later, when I curve some groceries, you know, if they got what they need, so let me shape the list real quick before we leave."
+  },
+  {
+    "clip": "p1_noisy",
+    "profile": "offline",
+    "edits": 19,
+    "reference_words": 36,
+    "wer": 0.5277777777777778,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 1.335024500003783,
+    "real_time_factor": 0.06846740325490026,
+    "hypothesis": "The sun rays in the east and certainly the west, the earth's blind south, the cheering people in their minds. Water boils at 100 degrees Celsius. The sky is blue, cheering the day of the late Vietnam."
+  },
+  {
+    "clip": "p2_noisy",
+    "profile": "offline",
+    "edits": 21,
+    "reference_words": 39,
+    "wer": 0.5384615384615384,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 1.4791128000069875,
+    "real_time_factor": 0.06157502009962976,
+    "hypothesis": "The meeting is scheduled for March 15, 2026, each of 1st 3pm. The total cost is $452.7 billion before the end. Flight number 247, depart from gate 4, external gate."
+  },
+  {
+    "clip": "p3_noisy",
+    "profile": "offline",
+    "edits": 13,
+    "reference_words": 33,
+    "wer": 0.3939393939393939,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 1.081156900007045,
+    "real_time_factor": 0.04877697528546213,
+    "hypothesis": "The micro-processor operates the debris frequency of 30.5 TG. The algorithm processes all 0.16 KG using the convolutional neural network. The API returns the adjacent response with a transcription confidence score."
+  },
+  {
+    "clip": "p4_noisy",
+    "profile": "offline",
+    "edits": 7,
+    "reference_words": 35,
+    "wer": 0.2,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 1.0314723000046797,
+    "real_time_factor": 0.06395537574433778,
+    "hypothesis": "Hello, how are you today? I am doing well thank you for asking. It was cold yesterday but today weather is much better. Can you please class? Can you please pass me the red nut cooker on the table?"
+  },
+  {
+    "clip": "p5_noisy",
+    "profile": "offline",
+    "edits": 13,
+    "reference_words": 27,
+    "wer": 0.48148148148148145,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 0.9773095999844372,
+    "real_time_factor": 0.06697571271823172,
+    "hypothesis": "When I head to the store of later, when I curve some groceries, you know, if they got what I need, so let me shape the list real quick before you leave."
+  },
+  {
+    "clip": "p1_noisy",
+    "profile": "live",
+    "edits": 19,
+    "reference_words": 36,
+    "wer": 0.5277777777777778,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 1.0870351000048686,
+    "real_time_factor": 0.055749142089941625,
+    "hypothesis": "The sun rays in the east and certainly the west, the earth's blind south, the cheering people in their minds. Water boils at 100 degrees Celsius. The sky is blue, cheering the day of the late Vietnam."
+  },
+  {
+    "clip": "p2_noisy",
+    "profile": "live",
+    "edits": 21,
+    "reference_words": 39,
+    "wer": 0.5384615384615384,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 1.1541229000140447,
+    "real_time_factor": 0.04804578850610451,
+    "hypothesis": "The meeting is scheduled for March 15, 2026, each of 1st 3pm. The total cost is $452.7 billion before the end. Flight number 247, depart from gate 4, external gate."
+  },
+  {
+    "clip": "p3_noisy",
+    "profile": "live",
+    "edits": 13,
+    "reference_words": 33,
+    "wer": 0.3939393939393939,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 1.1042854999832343,
+    "real_time_factor": 0.04982043451826968,
+    "hypothesis": "The micro-processor operates the debris frequency of 30.5 TG. The algorithm processes for 0.16 KG using the convolutional neural network. The API returns the adjacent response with a transcription confidence score."
+  },
+  {
+    "clip": "p4_noisy",
+    "profile": "live",
+    "edits": 7,
+    "reference_words": 35,
+    "wer": 0.2,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 1.1812252999807242,
+    "real_time_factor": 0.07324065600078895,
+    "hypothesis": "Hello, how are you today? I am doing well thank you for asking. It was cold yesterday but today weather is much better. Can you please class? Can you please pass me the red nut cake on the table?"
+  },
+  {
+    "clip": "p5_noisy",
+    "profile": "live",
+    "edits": 13,
+    "reference_words": 27,
+    "wer": 0.48148148148148145,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 1.1187976999790408,
+    "real_time_factor": 0.07667199150075663,
+    "hypothesis": "When I head to the store of later, when I curve some groceries, you know, if they got what I need, so let me shape the list real quick before you leave."
+  }
+]

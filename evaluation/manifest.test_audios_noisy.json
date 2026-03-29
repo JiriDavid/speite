@@ -1,0 +1,27 @@
+[
+  {
+    "name": "p1_noisy",
+    "audio_path": "../test_audios_noisy/p1.wav",
+    "reference_path": "../test_texts/p1.txt"
+  },
+  {
+    "name": "p2_noisy",
+    "audio_path": "../test_audios_noisy/p2.wav",
+    "reference_path": "../test_texts/p2.txt"
+  },
+  {
+    "name": "p3_noisy",
+    "audio_path": "../test_audios_noisy/p3.wav",
+    "reference_path": "../test_texts/p3.txt"
+  },
+  {
+    "name": "p4_noisy",
+    "audio_path": "../test_audios_noisy/p4.wav",
+    "reference_path": "../test_texts/p4.txt"
+  },
+  {
+    "name": "p5_noisy",
+    "audio_path": "../test_audios_noisy/p5.wav",
+    "reference_path": "../test_texts/p5.txt"
+  }
+]

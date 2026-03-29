@@ -1,0 +1,62 @@
+[
+  {
+    "clip": "p1",
+    "profile": "none",
+    "edits": 5,
+    "reference_words": 36,
+    "wer": 0.1388888888888889,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 1.3301895000040531,
+    "real_time_factor": 0.06821943784698602,
+    "hypothesis": "Sun rises in the east and sets in the west. Birds fly south during the winter months. Water boils at 100 degrees Celsius. The sky is blue during the day and the lake at night.",
+    "redecode_count": 0
+  },
+  {
+    "clip": "p2",
+    "profile": "none",
+    "edits": 19,
+    "reference_words": 39,
+    "wer": 0.48717948717948717,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 1.1441221999994013,
+    "real_time_factor": 0.04762946237843587,
+    "hypothesis": "The meeting is scheduled for March 15th, 2026, edge of past 3pm. The total cost is $452.07 billion, flight number 247, departs from gate 12, edge 10 now B.",
+    "redecode_count": 0
+  },
+  {
+    "clip": "p3",
+    "profile": "none",
+    "edits": 13,
+    "reference_words": 33,
+    "wer": 0.3939393939393939,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 1.1624663000111468,
+    "real_time_factor": 0.05244529261706312,
+    "hypothesis": "The microprocessor operates the reference of 3.5 gigaheads. The algorithm processes all due to 16 kHz using a convolutional neural network. The API retains adjacent response with the transcription confidence score.",
+    "redecode_count": 0
+  },
+  {
+    "clip": "p4",
+    "profile": "none",
+    "edits": 0,
+    "reference_words": 35,
+    "wer": 0.0,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 1.0883805000048596,
+    "real_time_factor": 0.06748390997053941,
+    "hypothesis": "Hello, how are you today? I am doing well, thank you for asking. It was cold yesterday, but today the weather is much better. Can you please pass me the red notebook on the table?",
+    "redecode_count": 0
+  },
+  {
+    "clip": "p5",
+    "profile": "none",
+    "edits": 6,
+    "reference_words": 27,
+    "wer": 0.2222222222222222,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 1.0769235999905504,
+    "real_time_factor": 0.07380233004321206,
+    "hypothesis": "gonna head to the store later wanna grab some groceries? do know if they got what I need though let me shape this real quick before we leave",
+    "redecode_count": 0
+  }
+]

@@ -41,6 +41,7 @@ setup(
         "console_scripts": [
             "speite-server=main:main",
             "speite-cli=cli:main",
+            "speite-eval=evaluate_transcriptions:main",
         ],
     },
     include_package_data=True,

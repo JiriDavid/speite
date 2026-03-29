@@ -66,6 +66,13 @@ Examples:
         action="store_true",
         help="Include timestamps in output"
     )
+
+    parser.add_argument(
+        "--keywords",
+        type=str,
+        default="",
+        help="Comma-separated keywords or phrases to detect"
+    )
     
     parser.add_argument(
         "--output",
@@ -112,8 +119,11 @@ Examples:
         else:
             result = stt_service.transcribe(audio_data)
         
+        keywords = parse_keywords_arg(args.keywords)
+        keyword_hits = stt_service.detect_keywords(result, keywords)
+
         # Format output
-        output_text = format_output(result, args.timestamps)
+        output_text = format_output(result, args.timestamps, keyword_hits)
         
         # Write output
         if args.output:
@@ -134,13 +144,27 @@ Examples:
         sys.exit(1)
 
 
-def format_output(result, include_timestamps):
+def parse_keywords_arg(raw_keywords: str):
+    """Parse comma/newline separated keyword input."""
+    if not raw_keywords:
+        return []
+
+    keywords = []
+    for item in raw_keywords.replace("\n", ",").split(","):
+        normalized = " ".join(item.strip().split())
+        if normalized:
+            keywords.append(normalized)
+    return keywords
+
+
+def format_output(result, include_timestamps, keyword_hits):
     """
     Format transcription result for output.
     
     Args:
         result: Transcription result dictionary
         include_timestamps: Whether to include timestamps
+        keyword_hits: Keyword match list
         
     Returns:
         Formatted output string
@@ -157,6 +181,16 @@ def format_output(result, include_timestamps):
     else:
         # Simple text output
         output_lines.append(result["text"])
+
+    if keyword_hits:
+        output_lines.append("")
+        output_lines.append("KEYWORD HITS")
+        output_lines.append("-" * 60)
+        for hit in keyword_hits:
+            output_lines.append(
+                f"[{hit['start']:.2f}s - {hit['end']:.2f}s] "
+                f"{hit['keyword']}: {hit['match']}"
+            )
     
     return "\n".join(output_lines)
 

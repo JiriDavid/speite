@@ -1,8 +1,8 @@
 # Core dependencies for offline speech-to-text system
-# Python 3.10+ required
+# Python 3.10+ required (tested with Python 3.14)
 
 # Speech-to-text - Open-source Whisper (local inference)
-openai-whisper>=20231117
+openai-whisper>=20240930
 
 # Deep learning framework
 torch>=2.0.0
@@ -11,6 +11,7 @@ torchaudio>=2.0.0
 # Audio preprocessing
 librosa>=0.10.0
 soundfile>=0.12.1
+imageio-ffmpeg>=0.5.1
 numpy>=1.24.0
 
 # ONNX Runtime for optional optimization

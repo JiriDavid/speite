@@ -1,0 +1,27 @@
+[
+  {
+    "name": "p1",
+    "audio_path": "../test_audios/p1.m4a",
+    "reference_path": "../test_texts/p1.txt"
+  },
+  {
+    "name": "p2",
+    "audio_path": "../test_audios/p2.m4a",
+    "reference_path": "../test_texts/p2.txt"
+  },
+  {
+    "name": "p3",
+    "audio_path": "../test_audios/p3.m4a",
+    "reference_path": "../test_texts/p3.txt"
+  },
+  {
+    "name": "p4",
+    "audio_path": "../test_audios/p4.m4a",
+    "reference_path": "../test_texts/p4.txt"
+  },
+  {
+    "name": "p5",
+    "audio_path": "../test_audios/p5.m4a",
+    "reference_path": "../test_texts/p5.txt"
+  }
+]

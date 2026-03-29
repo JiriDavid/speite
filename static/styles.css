@@ -23,12 +23,17 @@ body {
   margin: 0;
   font-family: "Space Grotesk", "Chakra Petch", "Segoe UI", sans-serif;
   color: var(--text);
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at 20% 20%,
       rgba(77, 226, 198, 0.08),
       transparent 30%
     ),
-    radial-gradient(circle at 80% 0%, rgba(246, 183, 60, 0.09), transparent 25%),
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(246, 183, 60, 0.09),
+      transparent 25%
+    ),
     linear-gradient(135deg, #05080f 0%, #0a1220 60%, #05080f 100%);
   min-height: 100vh;
   overflow-x: hidden;
@@ -45,10 +50,8 @@ body {
 .grid-bg {
   position: fixed;
   inset: 0;
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.04) 1px,
-      transparent 1px
-    ),
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 120px 120px;
   opacity: 0.2;
@@ -71,11 +74,8 @@ body {
   gap: 24px;
   align-items: center;
   padding: 32px;
-  background: linear-gradient(
-      120deg,
-      rgba(77, 226, 198, 0.14),
-      rgba(10, 18, 32, 0.5)
-    ),
+  background:
+    linear-gradient(120deg, rgba(77, 226, 198, 0.14), rgba(10, 18, 32, 0.5)),
     var(--panel);
   border: 1px solid var(--panel-border);
   border-radius: var(--radius-lg);
@@ -127,6 +127,41 @@ h1 {
   font-size: 14px;
 }
 
+.keyword-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  max-width: 620px;
+}
+
+.keyword-row label {
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.keyword-row input {
+  width: 100%;
+  border: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font: inherit;
+}
+
+.keyword-row input::placeholder {
+  color: var(--muted);
+}
+
+.keyword-row input:focus {
+  outline: none;
+  border-color: rgba(77, 226, 198, 0.45);
+  box-shadow: 0 0 0 2px rgba(77, 226, 198, 0.15);
+}
+
 .btn {
   border: none;
   padding: 12px 16px;
@@ -134,7 +169,10 @@ h1 {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .btn.primary {
@@ -187,7 +225,9 @@ h1 {
   height: 18px;
   border-radius: 50%;
   background: var(--muted);
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 .toggle input:checked + .slider {
@@ -249,7 +289,9 @@ h1 {
   border-radius: 999px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.2s ease, transform 0.12s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.12s ease;
 }
 
 .pill:hover {
@@ -306,7 +348,9 @@ h1 {
 
 .uplink.dragging {
   border-color: rgba(77, 226, 198, 0.45);
-  box-shadow: 0 0 0 2px rgba(77, 226, 198, 0.2), var(--shadow);
+  box-shadow:
+    0 0 0 2px rgba(77, 226, 198, 0.2),
+    var(--shadow);
 }
 
 .accent-bar {
@@ -379,6 +423,13 @@ pre#transcript {
   font-family: "Chakra Petch", "Space Grotesk", monospace;
 }
 
+pre#transcript .kw-hit {
+  background: rgba(246, 183, 60, 0.28);
+  color: #fff6d5;
+  border-radius: 6px;
+  padding: 1px 4px;
+}
+
 .segments {
   padding: 0 0 10px;
 }
@@ -426,6 +477,15 @@ pre#transcript {
   font-weight: 700;
 }
 
+.badge-keyword {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(86, 240, 159, 0.16);
+  color: #7ef5b2;
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
 .toast {
   position: fixed;
   bottom: 24px;
@@ -438,7 +498,9 @@ pre#transcript {
   box-shadow: var(--shadow);
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
   z-index: 10;
 }
 
@@ -468,5 +530,9 @@ pre#transcript {
   }
   .btn {
     width: auto;
+  }
+  .keyword-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 }

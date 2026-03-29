@@ -1,0 +1,167 @@
+[
+  {
+    "clip": "p1",
+    "profile": "none",
+    "edits": 9,
+    "reference_words": 36,
+    "wer": 0.25,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 6.048954700003378,
+    "real_time_factor": 0.3102236855687532,
+    "hypothesis": "The sun rises in the east and sets in the west. Birds fly so, featuring the winter months. Water boils at 100 degrees Celsius. This guy is blue, shooting the day and the plague at night."
+  },
+  {
+    "clip": "p2",
+    "profile": "none",
+    "edits": 26,
+    "reference_words": 39,
+    "wer": 0.6666666666666666,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 6.176278900005855,
+    "real_time_factor": 0.2571166292435459,
+    "hypothesis": "The meeting is scheduled for March 15th, 2026, aged 1 past 3 p.m. The total cost is 450 USD. The asset will be \u00a3452. The asset will be \u00a34.7 billion. Flight number 247 departs from get to go. It's still not being."
+  },
+  {
+    "clip": "p3",
+    "profile": "none",
+    "edits": 15,
+    "reference_words": 33,
+    "wer": 0.45454545454545453,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 4.463705799978925,
+    "real_time_factor": 0.2013824889668903,
+    "hypothesis": "The micro-process our parades is a bit of frequency of 0.5 pg. The algorithm processes all geolated 16 kHz using a convolutional neural network. The API returns the JSON response with the transcription confidence score."
+  },
+  {
+    "clip": "p4",
+    "profile": "none",
+    "edits": 7,
+    "reference_words": 35,
+    "wer": 0.2,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 4.048923299997114,
+    "real_time_factor": 0.25104931175577344,
+    "hypothesis": "Hello, how are you today? I am doing well, thank you for asking. It was cold yesterday, but today they were very much better. Can you please pass me? They are not both on the table."
+  },
+  {
+    "clip": "p5",
+    "profile": "none",
+    "edits": 12,
+    "reference_words": 27,
+    "wer": 0.4444444444444444,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 4.450734100013506,
+    "real_time_factor": 0.305011931196101,
+    "hypothesis": "I'm going to head to the store later. I'm going to grab some groceries. Do know if they got what I need though. Let me check at least real quick before we leave."
+  },
+  {
+    "clip": "p1",
+    "profile": "offline",
+    "edits": 13,
+    "reference_words": 36,
+    "wer": 0.3611111111111111,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 4.648764899990056,
+    "real_time_factor": 0.23841424711227646,
+    "hypothesis": "The sun rises in the east and setting the worst beds flying south during the winter months. Water boils at 100 degree Celsius. This guy is blue, shedding the day and the plague at night."
+  },
+  {
+    "clip": "p2",
+    "profile": "offline",
+    "edits": 27,
+    "reference_words": 39,
+    "wer": 0.6923076923076923,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 6.409113100002287,
+    "real_time_factor": 0.2668094468194561,
+    "hypothesis": "The meeting is scheduled for March 15th, 2026, aged half past 3 p.m. The total cost is $450,000. The asset will be given in flight number 247. The parts from get to go, it's still not be."
+  },
+  {
+    "clip": "p3",
+    "profile": "offline",
+    "edits": 16,
+    "reference_words": 33,
+    "wer": 0.48484848484848486,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 4.378014700021595,
+    "real_time_factor": 0.1975164888842237,
+    "hypothesis": "The micro-process our parades is a bit of frequency of 0.5 pkh. The algorithm processes all year to 16 kh using a convolutional neural network. The API returns the JSON response with the transcription confidence score."
+  },
+  {
+    "clip": "p4",
+    "profile": "offline",
+    "edits": 11,
+    "reference_words": 35,
+    "wer": 0.3142857142857143,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 0.9427995000150986,
+    "real_time_factor": 0.05845731026879331,
+    "hypothesis": "Hello, how are you today? I am doing well, thank you for asking. It was cold yesterday, but today the weather is much better. Can you please plus, can you please pass me? There is not too much to do."
+  },
+  {
+    "clip": "p5",
+    "profile": "offline",
+    "edits": 8,
+    "reference_words": 27,
+    "wer": 0.2962962962962963,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 0.7285651000274811,
+    "real_time_factor": 0.04992907757863768,
+    "hypothesis": "I'm gonna head to the store later. Wanna grip some groceries? Do know. If they got what I need though, let me check at least real quick before we leave."
+  },
+  {
+    "clip": "p1",
+    "profile": "live",
+    "edits": 14,
+    "reference_words": 36,
+    "wer": 0.3888888888888889,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 0.9006302000198048,
+    "real_time_factor": 0.04618927299695453,
+    "hypothesis": "The sun rises in the east and setting the world beds flying south during the winter months. Water boils at 100\u00b0C. This guy is blue, shooting the day and the plague at night."
+  },
+  {
+    "clip": "p2",
+    "profile": "live",
+    "edits": 19,
+    "reference_words": 39,
+    "wer": 0.48717948717948717,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 0.9297696000139695,
+    "real_time_factor": 0.03870602824112835,
+    "hypothesis": "The meeting is scheduled for March 15th, 2026, aged half past 3 p.m. The total cost is 450 USD. They are 7 billion people on it. Flight number 247 departs from gate to roof, it's 10 now be."
+  },
+  {
+    "clip": "p3",
+    "profile": "live",
+    "edits": 15,
+    "reference_words": 33,
+    "wer": 0.45454545454545453,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 1.0994648000050802,
+    "real_time_factor": 0.049602946044865384,
+    "hypothesis": "The micro-process our parades is a deterred frequency of 3.5 pg. The algorithm processes all year to 16 kHz using a convolutional neuron network. The API returns the JSON response with the transcription confidence score."
+  },
+  {
+    "clip": "p4",
+    "profile": "live",
+    "edits": 6,
+    "reference_words": 35,
+    "wer": 0.17142857142857143,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 1.0959046999923885,
+    "real_time_factor": 0.06795044022770266,
+    "hypothesis": "Hello, how are you today? I am doing well, thank you for asking. It was cold yesterday, but today the weather is much better. Can you please plus, can you please pass me the red note to the table?"
+  },
+  {
+    "clip": "p5",
+    "profile": "live",
+    "edits": 13,
+    "reference_words": 27,
+    "wer": 0.48148148148148145,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 0.7518132999830414,
+    "real_time_factor": 0.051522293036118515,
+    "hypothesis": "I'm going to head to the store later. I'm going to grab some groceries. To know if they got what I need to. Let me check at least real quick before we leave."
+  }
+]

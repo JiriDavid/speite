@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,11 +27,22 @@
           <div class="cta-row">
             <button id="chooseBtn" class="btn primary">Select audio</button>
             <button id="transcribeBtn" class="btn ghost">Transcribe</button>
+            <button id="recordBtn" class="btn secondary">
+              🎤 Start Recording
+            </button>
             <label class="toggle">
               <input type="checkbox" id="timestampsToggle" />
               <span class="slider"></span>
               <span class="label">Include timestamps</span>
             </label>
+          </div>
+          <div class="keyword-row">
+            <label for="keywordsInput">Keywords</label>
+            <input
+              id="keywordsInput"
+              type="text"
+              placeholder="e.g. fire, emergency exit, hazard"
+            />
           </div>
           <p class="hint">
             Supports WAV · MP3 · FLAC · OGG · M4A (<= 50 MB). Default max
@@ -104,6 +115,38 @@
           <p class="placeholder">
             Enable timestamps to see segment-level timing.
           </p>
+        </div>
+      </section>
+
+      <section class="panel hits">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Keyword Spotting</p>
+            <h2>Matches</h2>
+          </div>
+          <span class="pill muted" id="keywordHitCount">0 hits</span>
+        </div>
+        <div id="keywordHits" class="segment-list empty">
+          <p class="placeholder">
+            Add keywords to detect terms and phrases with timestamps.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel live">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Live</p>
+            <h2>Real-time Transcription</h2>
+          </div>
+          <div class="panel-actions">
+            <span class="pill muted" id="liveStatus">Ready</span>
+          </div>
+        </div>
+        <div class="output-body">
+          <pre id="liveTranscript">
+Click "Start Recording" to begin real-time transcription...</pre
+          >
         </div>
       </section>
     </main>

@@ -5,13 +5,14 @@ This module provides REST API endpoints for speech-to-text transcription.
 All processing is done locally with no external API calls.
 """
 
+import asyncio
 import logging
-from typing import Optional, Dict, Any
-from io import BytesIO
+from typing import Optional, Dict, Any, List
 from contextlib import asynccontextmanager
 from pathlib import Path
+import numpy as np
 
-from fastapi import FastAPI, File, UploadFile, HTTPException, Form
+from fastapi import FastAPI, File, UploadFile, HTTPException, Form, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -19,7 +20,7 @@ from pydantic import BaseModel
 
 from speite.config import settings
 from speite.core import SpeechToTextService
-from speite.utils import load_audio_from_bytes
+from speite.utils import AudioPreprocessor, load_audio_from_bytes
 
 # Configure logging
 logging.basicConfig(
@@ -33,6 +34,7 @@ STATIC_DIR = Path(__file__).resolve().parent.parent.parent / "static"
 
 # Initialize speech-to-text service
 stt_service = SpeechToTextService()
+audio_preprocessor = AudioPreprocessor()
 
 
 @asynccontextmanager
@@ -82,6 +84,20 @@ class TranscriptionResponse(BaseModel):
     text: str
     language: str
     segments: Optional[list] = None
+    keyword_hits: Optional[list] = None
+
+
+def parse_keywords(raw_keywords: Optional[str]) -> List[str]:
+    """Parse comma/newline separated keywords or phrases."""
+    if not raw_keywords:
+        return []
+
+    keywords: List[str] = []
+    for item in raw_keywords.replace("\n", ",").split(","):
+        normalized = " ".join(item.strip().split())
+        if normalized:
+            keywords.append(normalized)
+    return keywords
 
 
 class HealthResponse(BaseModel):
@@ -135,7 +151,15 @@ async def health_check():
 @app.post("/transcribe", response_model=TranscriptionResponse)
 async def transcribe_audio(
     file: UploadFile = File(..., description="Audio file to transcribe"),
-    include_timestamps: bool = Form(False, description="Include segment timestamps in response")
+    include_timestamps: bool = Form(False, description="Include segment timestamps in response"),
+    keywords: Optional[str] = Form(
+        None,
+        description="Optional comma/newline separated keywords or phrases for spotting",
+    ),
+    prompt: Optional[str] = Form(
+        None,
+        description="Optional initial prompt text to bias decoding",
+    ),
 ):
     """
     Transcribe audio file to text.
@@ -162,23 +186,31 @@ async def transcribe_audio(
     
     try:
         # Load and preprocess audio from bytes
-        audio_data = load_audio_from_bytes(content, file.filename)
+        audio_data = load_audio_from_bytes(content, file.filename, profile="offline")
         
+        parsed_keywords = parse_keywords(keywords)
+
+        decode_kwargs = {"initial_prompt": prompt} if prompt else {}
+
         # Transcribe
         if include_timestamps:
-            result = stt_service.transcribe_with_timestamps(audio_data)
+            result = stt_service.transcribe_with_timestamps(audio_data, **decode_kwargs)
         else:
-            result = stt_service.transcribe(audio_data)
-            # Remove segments if timestamps not requested
-            if not include_timestamps and "segments" in result:
-                result["segments"] = None
+            result = stt_service.transcribe(audio_data, **decode_kwargs)
+
+        keyword_hits = stt_service.detect_keywords(result, parsed_keywords)
+
+        # Remove segments if timestamps are not requested
+        if not include_timestamps and "segments" in result:
+            result["segments"] = None
         
         logger.info(f"Transcription completed for {file.filename}")
         
         return TranscriptionResponse(
             text=result["text"],
             language=result["language"],
-            segments=result.get("segments")
+            segments=result.get("segments"),
+            keyword_hits=keyword_hits,
         )
         
     except ValueError as e:
@@ -199,6 +231,71 @@ async def get_model_info():
         Model configuration details
     """
     return stt_service.get_model_info()
+
+
+@app.websocket("/ws/stream")
+async def websocket_stream(websocket: WebSocket):
+    """
+    WebSocket endpoint for real-time streaming transcription.
+    
+    Expects audio chunks as binary data, responds with transcription updates.
+    """
+    await websocket.accept()
+    logger.info("WebSocket connection established for streaming")
+    
+    accumulated_text = ""
+    
+    try:
+        while True:
+            # Receive audio chunk
+            data = await websocket.receive_bytes()
+            logger.info(f"Received audio chunk: {len(data)} bytes")
+            
+            if not data:
+                continue
+            
+            # Load audio from bytes
+            try:
+                # Data is raw 16-bit PCM at 16kHz mono
+                pcm_data = np.frombuffer(data, dtype=np.int16).astype(np.float32) / 32768.0
+                logger.info(f"Loaded PCM audio chunk: {len(pcm_data)} samples")
+
+                pcm_data = audio_preprocessor.preprocess_array(pcm_data, profile="live")
+                
+                # Transcribe the chunk
+                result = await asyncio.to_thread(
+                    stt_service.streaming_transcribe,
+                    pcm_data,
+                    accumulated_text,
+                )
+                logger.info(f"Transcription result: '{result['text']}'")
+                
+                if result["text"]:
+                    # Update accumulated text
+                    accumulated_text += " " + result["text"]
+                    accumulated_text = accumulated_text.strip()
+                    
+                    # Send transcription update
+                    await websocket.send_json({
+                        "type": "transcription",
+                        "text": result["text"],
+                        "accumulated_text": accumulated_text,
+                        "segments": result["segments"],
+                        "language": result["language"]
+                    })
+                    logger.info(f"Sent transcription update: '{accumulated_text}'")
+                    
+            except Exception as e:
+                logger.error(f"Error processing audio chunk: {str(e)}")
+                await websocket.send_json({
+                    "type": "error",
+                    "message": f"Processing error: {str(e)}"
+                })
+                
+    except WebSocketDisconnect:
+        logger.info("WebSocket connection closed")
+    except Exception as e:
+        logger.error(f"WebSocket error: {str(e)}")
 
 
 @app.exception_handler(Exception)

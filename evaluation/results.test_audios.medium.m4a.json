@@ -1,0 +1,167 @@
+[
+  {
+    "clip": "p1",
+    "profile": "none",
+    "edits": 2,
+    "reference_words": 36,
+    "wer": 0.05555555555555555,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 17.07890450002742,
+    "real_time_factor": 0.8759002112335725,
+    "hypothesis": "The sun rises in the east and sets in the west. Birds fly south during the winter months. Water boils at 100 degrees Celsius. The sky is blue during the day and black at night."
+  },
+  {
+    "clip": "p2",
+    "profile": "none",
+    "edits": 9,
+    "reference_words": 39,
+    "wer": 0.23076923076923078,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 22.170492400007788,
+    "real_time_factor": 0.9229509170245292,
+    "hypothesis": "The meeting is scheduled for March 15th, 2026 at half past 3pm. The total cost is $452. There are 7 billion people on Earth. Flight number 247 departs from Gate 12 at Terminal B."
+  },
+  {
+    "clip": "p3",
+    "profile": "none",
+    "edits": 3,
+    "reference_words": 33,
+    "wer": 0.09090909090909091,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 16.233354600000894,
+    "real_time_factor": 0.7323765275134693,
+    "hypothesis": "The microprocessor operates at a frequency of 3.5 GHz. The algorithm processes audio at 16 KHz using a convolutional neural network. The API returns a JSON response with a transcription confidence score."
+  },
+  {
+    "clip": "p4",
+    "profile": "none",
+    "edits": 0,
+    "reference_words": 35,
+    "wer": 0.0,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 15.506221099989489,
+    "real_time_factor": 0.9614472408227609,
+    "hypothesis": "Hello, how are you today? I am doing well, thank you for asking. It was cold yesterday, but today the weather is much better. Can you please pass me the red notebook on the table?"
+  },
+  {
+    "clip": "p5",
+    "profile": "none",
+    "edits": 4,
+    "reference_words": 27,
+    "wer": 0.14814814814814814,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 14.09130329999607,
+    "real_time_factor": 0.9656869037826254,
+    "hypothesis": "Gonna head to the store later. Wanna grab some groceries? Don't know if they got what I need though. Let me check the list real quick before we leave."
+  },
+  {
+    "clip": "p1",
+    "profile": "offline",
+    "edits": 2,
+    "reference_words": 36,
+    "wer": 0.05555555555555555,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 15.953391799994279,
+    "real_time_factor": 0.818177726064602,
+    "hypothesis": "The sun rises in the east and sets in the west. Birds fly south during the winter months. Water boils at 100 degrees Celsius. The sky is blue during the day and black at night."
+  },
+  {
+    "clip": "p2",
+    "profile": "offline",
+    "edits": 12,
+    "reference_words": 39,
+    "wer": 0.3076923076923077,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 16.165967000008095,
+    "real_time_factor": 0.6729843342243724,
+    "hypothesis": "The meeting is scheduled for March 15, 2026 at half past 3pm. The total cost is $452. There are 7 billion people on Earth. Flight number 247 departs from gate 12, external B."
+  },
+  {
+    "clip": "p3",
+    "profile": "offline",
+    "edits": 3,
+    "reference_words": 33,
+    "wer": 0.09090909090909091,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 16.4416835999873,
+    "real_time_factor": 0.7417754024441253,
+    "hypothesis": "The microprocessor operates at a frequency of 3.5 ph. The algorithm processes audio at 16 kHz using a convolutional neural network. The API returns a JSON response with a transcription confidence score."
+  },
+  {
+    "clip": "p4",
+    "profile": "offline",
+    "edits": 0,
+    "reference_words": 35,
+    "wer": 0.0,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 18.13570330000948,
+    "real_time_factor": 1.124485571677175,
+    "hypothesis": "Hello, how are you today? I am doing well, thank you for asking. It was cold yesterday, but today the weather is much better. Can you please pass me the red notebook on the table?"
+  },
+  {
+    "clip": "p5",
+    "profile": "offline",
+    "edits": 4,
+    "reference_words": 27,
+    "wer": 0.14814814814814814,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 34.07084279999253,
+    "real_time_factor": 2.3348987664468566,
+    "hypothesis": "gonna head to the store later wanna grab some groceries? do know if they got what I need though let me check the list real quick before we leave"
+  },
+  {
+    "clip": "p1",
+    "profile": "live",
+    "edits": 2,
+    "reference_words": 36,
+    "wer": 0.05555555555555555,
+    "duration_seconds": 19.4986875,
+    "elapsed_seconds": 32.6142938999983,
+    "real_time_factor": 1.6726404738779626,
+    "hypothesis": "The sun rises in the east and sets in the west. Birds fly south during the winter months. Water boils at 100 degrees Celsius. The sky is blue during the day and black at night."
+  },
+  {
+    "clip": "p2",
+    "profile": "live",
+    "edits": 9,
+    "reference_words": 39,
+    "wer": 0.23076923076923078,
+    "duration_seconds": 24.0213125,
+    "elapsed_seconds": 16.539350200007902,
+    "real_time_factor": 0.6885281643127494,
+    "hypothesis": "The meeting is scheduled for March 15th, 2026 at half past 3pm. The total cost is $452. There are 7 billion people on Earth. Flight number 247 departs from Gate 12 at Terminal B."
+  },
+  {
+    "clip": "p3",
+    "profile": "live",
+    "edits": 3,
+    "reference_words": 33,
+    "wer": 0.09090909090909091,
+    "duration_seconds": 22.1653125,
+    "elapsed_seconds": 16.03822129999753,
+    "real_time_factor": 0.7235729836878019,
+    "hypothesis": "The microprocessor operates at a frequency of 3.5 GHz. The algorithm processes audio at 16 KHz using a convolutional neural network. The API returns a JSON response with a transcription confidence score."
+  },
+  {
+    "clip": "p4",
+    "profile": "live",
+    "edits": 0,
+    "reference_words": 35,
+    "wer": 0.0,
+    "duration_seconds": 16.128,
+    "elapsed_seconds": 18.390889200003585,
+    "real_time_factor": 1.1403081101192698,
+    "hypothesis": "Hello, how are you today? I am doing well, thank you for asking. It was cold yesterday, but today the weather is much better. Can you please pass me the red notebook on the table?"
+  },
+  {
+    "clip": "p5",
+    "profile": "live",
+    "edits": 5,
+    "reference_words": 27,
+    "wer": 0.18518518518518517,
+    "duration_seconds": 14.592,
+    "elapsed_seconds": 14.943224199989345,
+    "real_time_factor": 1.0240696408983925,
+    "hypothesis": "Gonna head to the store of later. Wanna grab some groceries? Don't know if they got what I need though. Let me check the list real quick before we leave."
+  }
+]

@@ -14,18 +14,24 @@ Evaluation across diverse English accents assesses transcription accuracy, infer
 
 The system proves the viability of offline speech processing on resource-constrained hardware, with applications in safety hazard reporting, accessibility for motor-impaired users, offline lecture transcription in education, and hands-free field logging in agriculture. This work advances inclusive, resilient speech technologies for connectivity-challenged settings.
 
+Advantages of this system
+-Low Latency
+-complete data privacy
+-complete offline
+
 ## Features
 
 - **Fully Offline**: No cloud APIs or internet connection required after initial setup
 - **Open Source**: Uses open-source Whisper model (no OpenAI API)
 - **CPU-Only Inference**: Works on systems without GPU
 - **English Language Support**: MVP focuses on English transcription
+- **Keyword Spotting**: Detect and timestamp user-defined keywords/phrases for search and safety reporting
 - **FastAPI Backend**: REST API for easy integration
 - **Clean & Well-Commented Code**: Designed for academic review and extension
 
 ## Technology Stack
 
-- **Python 3.10+**
+- **Python 3.10+** (tested with Python 3.14)
 - **OpenAI Whisper** (open-source, local inference)
 - **PyTorch** (deep learning framework)
 - **librosa** (audio preprocessing)
@@ -34,7 +40,7 @@ The system proves the viability of offline speech processing on resource-constra
 
 ## Requirements
 
-- Python 3.10 or higher
+- Python 3.10 or higher (tested with Python 3.14)
 - 4GB+ RAM (depending on model size)
 - Storage for model files (~100MB - 3GB depending on model)
 
@@ -83,6 +89,7 @@ The API will be available at `http://localhost:8000`
 - `POST /transcribe` - Transcribe audio file
   - Upload audio file using multipart/form-data
   - Optional parameter: `include_timestamps` (boolean)
+  - Optional parameter: `keywords` (comma/newline-separated words or phrases)
 - `GET /models` - Get model configuration
 
 **Example using curl:**
@@ -97,6 +104,12 @@ curl -X POST "http://localhost:8000/transcribe" \
 curl -X POST "http://localhost:8000/transcribe" \
   -F "file=@audio.wav" \
   -F "include_timestamps=true"
+
+# With keyword spotting
+curl -X POST "http://localhost:8000/transcribe" \
+  -F "file=@audio.wav" \
+  -F "include_timestamps=true" \
+  -F "keywords=fire, emergency exit, hazard"
 ```
 
 PowerShell tip: use `curl.exe` (not the PowerShell alias) or `Invoke-RestMethod -Method Post` to avoid the `-X` parameter error.
@@ -130,6 +143,9 @@ python cli.py audio.wav
 
 # With timestamps
 python cli.py audio.wav --timestamps
+
+# With keyword spotting
+python cli.py audio.wav --timestamps --keywords "fire, emergency exit, hazard"
 
 # Use different model size
 python cli.py audio.wav --model small
@@ -170,6 +186,13 @@ Or create a `.env` file in the project root:
 SPEITE_WHISPER_MODEL_NAME=base
 SPEITE_API_PORT=8000
 ```
+
+Preprocessing is now split into two profiles:
+
+- `offline`: tuned for uploaded files with stronger preservation of quieter speech
+- `live`: tuned for microphone streaming with more aggressive noise gating and lower target peak
+
+The sample configuration file `.env.example` includes separate thresholds for both profiles.
 
 ## Whisper Model Sizes
 
@@ -277,6 +300,16 @@ for segment in result["segments"]:
 ### Running Tests
 
 Tests can be added to the `tests/` directory following standard pytest conventions.
+
+### Objective Evaluation
+
+Use the evaluation script to compare WER across preprocessing profiles on verified sample clips:
+
+```bash
+python evaluate_transcriptions.py evaluation/manifest.example.json --profiles none offline live
+```
+
+Provide a real reference transcript for each clip listed in the manifest before trusting the scores. The manifest format is documented in `evaluation/README.md`.
 
 ### Code Style
 

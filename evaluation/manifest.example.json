@@ -1,0 +1,7 @@
+[
+  {
+    "name": "sermon-sample",
+    "audio_path": "../sermon.ogg",
+    "reference_path": "../sermon.txt"
+  }
+]
